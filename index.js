@@ -49,7 +49,7 @@ app.use(express.json({ extended: true }));
 app.use(express.urlencoded({ extended: false }));
 
 app.use(cookieParser());
-// app.use(router);
+app.use(router);
 
 // app.use(require("./Routes/router"));
 

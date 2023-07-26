@@ -6,7 +6,7 @@ const userSchema = new mongoose.Schema({
         type: String,
         required: true,
         trim: true,
-        maxlength: 100
+        maxlength: 20
     },
     last_name: {
         type: String,
@@ -27,7 +27,8 @@ const userSchema = new mongoose.Schema({
     },
     age: {
         type: Number,
-        min: 0
+        min: 0,
+        required: true,
     },
     phoneNumber: {
         type: Number,

@@ -5,7 +5,9 @@ class Controller {
     createCar = async (req, res) => {
         try {
             const carInformations = req.body
-            let carToBeCreated = new carModel(...carInformations)
+            let carToBeCreated = new carModel(carInformations)
+            await carToBeCreated.save();
+            console.log(carToBeCreated)
             return res.status(200).json({
                 message: "Car Created Successfully",
                 success: true,
@@ -21,6 +23,7 @@ class Controller {
     getCarById = async (req, res) => {
         try {
             const { _id } = req.body
+            console.log("here")
             let carToBeRetrieved = await carModel.findById({ _id })
             if (!carToBeRetrieved) {
                 return res.status(404).json({
