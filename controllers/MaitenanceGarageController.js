@@ -1,17 +1,13 @@
-const mongoose = require("mongoose")
-const carModel = require("../models/carModel")
+const maintenanceGaragesModel = require("../models/MaintenanceGarageModel")
 
 class Controller {
-    createCar = async (req, res) => {
+    createMaitenanceGarage = async (req, res) => {
         try {
-            const carInformations = req.body
-            let carToBeCreated = new carModel(carInformations)
-            await carToBeCreated.save();
-            console.log(carToBeCreated)
+            let newGarage = await maintenanceGaragesModel.create({ ...req.body })
             return res.status(200).json({
-                message: "Car Created Successfully",
+                message: "Garage Created Successfully",
                 success: true,
-                data: carToBeCreated
+                data: newGarage
             })
         } catch (error) {
             return res.status(500).json({
@@ -20,21 +16,20 @@ class Controller {
             })
         }
     }
-    getCarById = async (req, res) => {
+    getMaitenanceGarageById = async (req, res) => {
         try {
             const { _id } = req.body
-            console.log("here")
-            let carToBeRetrieved = await carModel.findById({ _id }).populate("owner").populate("maintenanceGarages")
-            if (!carToBeRetrieved) {
+            const garageToBeFetched = await maintenanceGaragesModel.findById({ _id }).populate("carsMaintained")
+            if (!garageToBeFetched) {
                 return res.status(404).json({
-                    message: "Car Not Found",
+                    message: "Garage Not Found",
                     success: false
                 })
             }
             return res.status(200).json({
-                message: "Car Retrieved Succesfully",
+                message: "Garage Retrieved Successfully",
                 success: true,
-                data: carToBeRetrieved
+                data: garageToBeFetched
             })
         } catch (error) {
             return res.status(500).json({
@@ -43,24 +38,24 @@ class Controller {
             })
         }
     }
-    deleteCarById = async (req, res) => {
+    deleteMaintenanceGarageById = async (req, res) => {
         try {
             const { _id } = req.body
-            let carToBeDeleted = await carModel.findByIdAndDelete({ _id })
-            if (!carToBeDeleted) {
+            const garageToBeDeletd = await maintenanceGaragesModel.findByIdAndDelete({ _id })
+            if (!garageToBeDeletd) {
                 return res.status(404).json({
-                    message: "Car Not Found",
+                    message: "Garage Deleted Successfully",
                     success: false
                 })
             }
             return res.status(200).json({
-                message: "Car Deleted Successfully",
+                message: "Garage Deleted Successfully",
                 success: true
             })
         } catch (error) {
             return res.status(500).json({
                 message: `Error ${error}`,
-                success: false
+                status: false
             })
         }
     }

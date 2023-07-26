@@ -47,7 +47,6 @@ const userSchema = new mongoose.Schema({
         type: mongoose.Schema.Types.ObjectId,
         ref: 'Car'
     }],
-    // Add other user properties as needed
 },
     { timestamps: true, collection: "User" }
 

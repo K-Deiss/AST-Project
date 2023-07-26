@@ -25,7 +25,7 @@ const carSchema = new mongoose.Schema({
         required: true
     },
     maintenanceGarages: [{
-        type: mongoose.Schema.Types.ObjectId,
+        type: mongoose.Types.ObjectId,
         ref: 'MaintenanceGarage'
     }],
     purchaseDate: {
