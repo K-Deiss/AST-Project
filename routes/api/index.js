@@ -1,10 +1,12 @@
 const router = require("express").Router();
+const verifyJWT = require("../../middleware/verifyJWT");
 
-router.use("/auth", require("./authRoutes"))
-router.use("/car", require("./carRoutes"))
-router.use("/garage", require("./MaitenanceGarageRoutes"))
+router.use("/auth", require("./authRoutes"));
+router.use("/user", verifyJWT, require("./userRoutes"));
+router.use("/car", verifyJWT, require("./carRoutes"));
+router.use("/garage", verifyJWT, require("./MaitenanceGarageRoutes"));
 router.get("/main", (req, res) => {
-    res.send("Connected to main route")
-})
+  res.send("Connected to main route");
+});
 
 module.exports = router;
